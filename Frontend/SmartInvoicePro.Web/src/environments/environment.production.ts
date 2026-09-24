@@ -1,5 +1,4 @@
-// Replace with your deployed API base URL before production builds.
 export const environment = {
   production: true,
-  apiUrl: 'https://smartinvoice-api.onrender.com/api',
+  apiUrl: 'https://smartinvoicepro-api-fkcuesfxdtf9bve7.centralindia-01.azurewebsites.net/api',
 };
