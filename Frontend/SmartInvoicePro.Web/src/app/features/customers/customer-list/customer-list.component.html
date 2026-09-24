@@ -1,0 +1,43 @@
+
+<app-page-header title="Customers" subtitle="Manage your customer directory" actionLabel="Add Customer" actionLink="/customers/new">
+  <button actions type="button" class="btn btn-secondary" (click)="exportExcel()">Export Excel</button>
+</app-page-header>
+<div class="filters card">
+  <input type="search" [(ngModel)]="search" (ngModelChange)="onSearch()" placeholder="Search customers..." />
+</div>
+<div class="table-wrapper card">
+  <table>
+    <thead>
+      <tr>
+        <th (click)="sort('customerName')" class="sortable">Name {{ sortIcon('customerName') }}</th>
+        <th>Email</th><th>Phone</th><th>City</th><th>Invoices</th><th>Status</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (loading()) {
+        <tr><td colspan="7" class="empty">Loading...</td></tr>
+      } @else if (!customers().length) {
+        <tr><td colspan="7" class="empty">No customers found</td></tr>
+      } @else {
+        @for (c of customers(); track c.customerId) {
+          <tr>
+            <td><a [routerLink]="['/customers', c.customerId]">{{ c.customerName }}</a></td>
+            <td>{{ c.email }}</td><td>{{ c.phone ?? '—' }}</td><td>{{ c.city ?? '—' }}</td>
+            <td>{{ c.invoiceCount }}</td>
+            <td><app-status-badge [status]="c.isActive ? 'Active' : 'Inactive'" /></td>
+            <td class="actions">
+              <a [routerLink]="['/customers', c.customerId, 'edit']" class="btn btn-secondary btn-sm">Edit</a>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+@if (totalPages() > 1) {
+  <div class="pagination">
+    <button class="btn btn-secondary btn-sm" [disabled]="page() <= 1" (click)="load(page() - 1)">Prev</button>
+    <span>Page {{ page() }} of {{ totalPages() }}</span>
+    <button class="btn btn-secondary btn-sm" [disabled]="page() >= totalPages()" (click)="load(page() + 1)">Next</button>
+  </div>
+}

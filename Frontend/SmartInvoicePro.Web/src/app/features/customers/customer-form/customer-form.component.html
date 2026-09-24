@@ -1,0 +1,29 @@
+
+<app-page-header [title]="isEdit ? 'Edit Customer' : 'New Customer'" />
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+<form [formGroup]="form" (ngSubmit)="submit()" class="card form-card">
+  <div class="form-row">
+    <div class="form-group"><label>Customer Name *</label><input formControlName="customerName" /></div>
+    <div class="form-group"><label>Company Name</label><input formControlName="companyName" /></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label>Email *</label><input type="email" formControlName="email" /></div>
+    <div class="form-group"><label>Phone</label><input formControlName="phone" /></div>
+  </div>
+  <div class="form-group"><label>Address</label><textarea formControlName="address" rows="2"></textarea></div>
+  <div class="form-row">
+    <div class="form-group"><label>City</label><input formControlName="city" /></div>
+    <div class="form-group"><label>State</label><input formControlName="state" /></div>
+    <div class="form-group"><label>Country</label><input formControlName="country" /></div>
+  </div>
+  <div class="form-group"><label>GSTIN / Tax Number</label><input formControlName="taxNumber" /></div>
+  @if (isEdit) {
+    <div class="form-group checkbox-group">
+      <label><input type="checkbox" formControlName="isActive" /> Active</label>
+    </div>
+  }
+  <div class="form-actions">
+    <a routerLink="/customers" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary" [disabled]="loading() || form.invalid">{{ loading() ? 'Saving...' : 'Save' }}</button>
+  </div>
+</form>

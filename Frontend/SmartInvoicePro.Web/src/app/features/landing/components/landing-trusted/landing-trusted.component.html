@@ -1,0 +1,18 @@
+
+<section class="landing-trusted" aria-label="Trusted by companies">
+  <div class="landing-container">
+    <p appAnimateOnScroll="fade-up" class="landing-trusted__label">Trusted by teams at leading companies</p>
+    <div class="landing-trusted__logos">
+      @for (company of companies; track company.name; let i = $index) {
+        <div
+          appAnimateOnScroll="scale"
+          [animateDelay]="i * 80"
+          class="landing-trusted__logo"
+          [attr.aria-label]="company.name"
+        >
+          <span class="landing-trusted__logo-text">{{ company.name }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,111 @@
+.landing-hero {
+  position: relative;
+  padding: 8rem 0 5rem;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+
+    &--1 {
+      width: 500px;
+      height: 500px;
+      top: -10%;
+      right: 10%;
+      background: var(--landing-orb-1, rgba(16, 185, 129, 0.12));
+    }
+
+    &--2 {
+      width: 400px;
+      height: 400px;
+      bottom: 0;
+      left: -5%;
+      background: var(--landing-orb-2, rgba(59, 130, 246, 0.08));
+    }
+  }
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--landing-grid-line, rgba(148, 163, 184, 0.06)) 1px, transparent 1px),
+      linear-gradient(90deg, var(--landing-grid-line, rgba(148, 163, 184, 0.06)) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+  }
+
+  &__grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+  }
+
+  &__title {
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--landing-text, #0f172a);
+    margin: 1.25rem 0;
+  }
+
+  &__subtitle {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--landing-text-muted, #64748b);
+    max-width: 520px;
+    margin: 0 0 2rem;
+  }
+
+  &__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  &__trust {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--landing-text-muted, #64748b);
+    }
+  }
+
+  &__visual {
+    position: relative;
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .landing-hero {
+    padding: 7rem 0 4rem;
+
+    &__grid-layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    &__visual { order: -1; }
+  }
+}

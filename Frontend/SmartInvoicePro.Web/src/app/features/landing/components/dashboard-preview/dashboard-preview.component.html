@@ -1,0 +1,125 @@
+
+<div class="dashboard-preview relative" aria-hidden="true">
+  <!-- Floating accent cards -->
+  <div class="float-card float-card--payment">
+    <div class="float-card__icon">✓</div>
+    <div>
+      <p class="float-card__label">Payment Received</p>
+      <p class="float-card__value">₹24,500</p>
+    </div>
+  </div>
+  <div class="float-card float-card--invoice">
+    <div class="float-card__icon float-card__icon--blue">📄</div>
+    <div>
+      <p class="float-card__label">New Invoice</p>
+      <p class="float-card__value">INV-2026-084</p>
+    </div>
+  </div>
+
+  <!-- Main dashboard frame -->
+  <div class="dashboard-frame">
+    <div class="dashboard-sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo__icon">S</span>
+      </div>
+      @for (item of navItems; track item.label) {
+        <div class="sidebar-item" [class.sidebar-item--active]="item.active">
+          <span [innerHTML]="item.icon"></span>
+        </div>
+      }
+    </div>
+
+    <div class="dashboard-main">
+      <div class="dashboard-topbar">
+        <div class="search-bar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span>Search invoices, customers...</span>
+        </div>
+        <div class="topbar-actions">
+          <div class="avatar">AK</div>
+        </div>
+      </div>
+
+      <div class="dashboard-content">
+        <div class="content-header">
+          <h3>Dashboard Overview</h3>
+          <span class="period-badge">This Month</span>
+        </div>
+
+        <div class="metric-grid">
+          @for (metric of metrics; track metric.label) {
+            <div class="metric-card">
+              <div class="metric-card__top">
+                <span class="metric-icon" [style.background]="metric.bg">{{ metric.icon }}</span>
+                <span class="metric-trend" [class.metric-trend--up]="metric.up">{{ metric.trend }}</span>
+              </div>
+              <p class="metric-label">{{ metric.label }}</p>
+              <p class="metric-value" [appCounter]="metric.value" [counterPrefix]="metric.prefix" [counterSuffix]="metric.suffix"></p>
+            </div>
+          }
+        </div>
+
+        <div class="charts-row">
+          <div class="chart-panel chart-panel--wide">
+            <div class="chart-panel__header">
+              <span>Revenue Overview</span>
+              <span class="chart-legend"><span class="dot dot--green"></span> Revenue</span>
+            </div>
+            <svg class="line-chart" viewBox="0 0 400 120" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,90 L50,75 L100,80 L150,55 L200,60 L250,35 L300,40 L350,20 L400,25 L400,120 L0,120 Z" fill="url(#revenueGrad)"/>
+              <path d="M0,90 L50,75 L100,80 L150,55 L200,60 L250,35 L300,40 L350,20 L400,25" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="chart-panel">
+            <div class="chart-panel__header"><span>Invoice Status</span></div>
+            <div class="donut-wrap">
+              <svg viewBox="0 0 100 100" class="donut-chart">
+                <circle cx="50" cy="50" r="38" fill="none" class="donut-track" stroke-width="12"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#10B981" stroke-width="12" stroke-dasharray="150 239" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#3B82F6" stroke-width="12" stroke-dasharray="55 334" stroke-dashoffset="-150" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#F59E0B" stroke-width="12" stroke-dasharray="34 355" stroke-dashoffset="-205" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="donut-center">
+                <span class="donut-center__value">248</span>
+                <span class="donut-center__label">Total</span>
+              </div>
+            </div>
+            <div class="status-legend">
+              @for (s of statusLegend; track s.label) {
+                <div class="status-legend__item">
+                  <span class="dot" [style.background]="s.color"></span>
+                  <span>{{ s.label }}</span>
+                  <span class="status-legend__count">{{ s.count }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-table">
+          <div class="recent-table__header">
+            <span>Recent Invoices</span>
+            <span class="view-all">View all →</span>
+          </div>
+          <div class="table-head">
+            <span>Invoice</span><span>Customer</span><span>Amount</span><span>Status</span>
+          </div>
+          @for (inv of recentInvoices; track inv.id) {
+            <div class="table-row">
+              <span class="inv-id">{{ inv.id }}</span>
+              <span class="inv-customer">{{ inv.customer }}</span>
+              <span class="inv-amount">{{ inv.amount }}</span>
+              <span class="inv-status" [attr.data-status]="inv.status">{{ inv.status }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

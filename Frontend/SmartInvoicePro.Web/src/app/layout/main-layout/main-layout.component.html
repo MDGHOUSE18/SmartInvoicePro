@@ -1,0 +1,17 @@
+
+<div class="layout" [class.sidebar-collapsed]="sidebarCollapsed()">
+  <app-sidebar [collapsed]="sidebarCollapsed()" (toggle)="toggleSidebar()" />
+  <div class="layout-main">
+    <app-header (menuToggle)="toggleSidebar()" />
+    <main class="content">
+      <router-outlet />
+    </main>
+    <app-footer />
+  </div>
+  @if (showWelcome()) {
+    <app-welcome-dialog (closed)="showWelcome.set(false)" />
+  }
+  @if (sidebarCollapsed() && mobileOpen()) {
+    <div class="sidebar-backdrop" (click)="closeMobile()"></div>
+  }
+</div>

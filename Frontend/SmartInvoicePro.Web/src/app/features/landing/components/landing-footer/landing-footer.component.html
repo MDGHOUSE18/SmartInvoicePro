@@ -1,0 +1,43 @@
+
+<footer id="contact" class="landing-footer">
+  <div class="landing-container">
+    <div class="landing-footer__grid">
+      <div class="landing-footer__brand">
+        <a routerLink="/" class="landing-footer__logo">
+          <span class="landing-footer__logo-icon" aria-hidden="true">S</span>
+          SmartInvoice <strong>Pro</strong>
+        </a>
+        <p>Professional Invoice &amp; Business Management System for Modern Businesses.</p>
+        <div class="landing-footer__social">
+          @for (social of socials; track social.label) {
+            <a [href]="social.href" [attr.aria-label]="social.label" target="_blank" rel="noopener noreferrer">
+              <span [innerHTML]="social.icon"></span>
+            </a>
+          }
+        </div>
+      </div>
+
+      @for (group of linkGroups; track group.title) {
+        <div class="landing-footer__col">
+          <h4>{{ group.title }}</h4>
+          <ul>
+            @for (link of group.links; track link.label) {
+              <li>
+                @if (link.external) {
+                  <a [href]="link.href" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+                } @else {
+                  <a [href]="link.href">{{ link.label }}</a>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div class="landing-footer__bottom">
+      <p>&copy; {{ year }} SmartInvoice Pro. All rights reserved.</p>
+      <p class="landing-footer__tagline">Built for freelancers, agencies &amp; growing businesses.</p>
+    </div>
+  </div>
+</footer>

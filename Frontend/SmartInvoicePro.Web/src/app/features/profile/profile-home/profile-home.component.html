@@ -1,0 +1,21 @@
+
+<app-page-header title="My Profile" subtitle="Account information and security" />
+<div class="card profile-card">
+  <h3>Account</h3>
+  <dl>
+    <dt>Name</dt><dd>{{ auth.user()?.fullName }}</dd>
+    <dt>Email</dt><dd>{{ auth.user()?.email }}</dd>
+    <dt>Phone</dt><dd>{{ auth.user()?.phone ?? '—' }}</dd>
+    <dt>Roles</dt><dd>{{ auth.user()?.roles?.join(', ') }}</dd>
+  </dl>
+</div>
+<div class="card form-card">
+  <h3>Change Password</h3>
+  @if (pwdMessage()) { <div class="alert alert-success">{{ pwdMessage() }}</div> }
+  @if (pwdError()) { <div class="alert alert-error">{{ pwdError() }}</div> }
+  <form [formGroup]="pwdForm" (ngSubmit)="changePassword()">
+    <div class="form-group"><label>Current Password</label><input type="password" formControlName="currentPassword" /></div>
+    <div class="form-group"><label>New Password</label><input type="password" formControlName="newPassword" /></div>
+    <button type="submit" class="btn btn-primary" [disabled]="pwdLoading() || pwdForm.invalid">{{ pwdLoading() ? 'Updating...' : 'Update Password' }}</button>
+  </form>
+</div>

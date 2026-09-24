@@ -1,0 +1,30 @@
+
+<section class="landing-testimonials">
+  <div class="landing-container">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">Testimonials</span>
+      <h2>Loved by businesses worldwide</h2>
+      <p>See what our customers have to say about transforming their billing workflow.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <article appAnimateOnScroll="fade-up" [animateDelay]="i * 120" class="testimonial-card landing-hover-lift">
+          <div class="testimonial-card__stars" [attr.aria-label]="t.rating + ' out of 5 stars'">
+            @for (star of [1,2,3,4,5]; track star) {
+              <svg width="16" height="16" viewBox="0 0 24 24" [attr.fill]="star <= t.rating ? '#F59E0B' : 'none'" stroke="#F59E0B" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            }
+          </div>
+          <blockquote>"{{ t.review }}"</blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" [style.background]="t.color">{{ t.initials }}</div>
+            <div>
+              <p class="testimonial-card__name">{{ t.name }}</p>
+              <p class="testimonial-card__company">{{ t.role }}, {{ t.company }}</p>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET
+**/bin/
+**/obj/
+**/TestResults/
+*.pdb
+
+# ASP.NET Core secrets/config
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.Production.json
+**/secrets.json
+
+# Angular
+**/node_modules/
+**/.angular/
+**/dist/
+**/coverage/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Documentation - keep local, don't push
+Documentation/
+
+# OS files
+.DS_Store
+Thumbs.db
+#clund
+.claude
+
+# VS Code
+.vscode/

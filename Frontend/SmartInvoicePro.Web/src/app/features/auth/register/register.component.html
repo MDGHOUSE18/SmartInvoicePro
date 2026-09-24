@@ -1,0 +1,35 @@
+
+<div class="auth-form">
+  <h2>Create account</h2>
+  <p class="subtitle">Start invoicing with SmartInvoice Pro</p>
+  @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+  @if (success()) { <div class="alert alert-success">{{ success() }}</div> }
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>First name</label>
+        <input formControlName="firstName" />
+      </div>
+      <div class="form-group">
+        <label>Last name</label>
+        <input formControlName="lastName" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input formControlName="phone" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="loading() || form.invalid">
+      {{ loading() ? 'Creating...' : 'Register' }}
+    </button>
+  </form>
+  <p class="auth-link"><a routerLink="/auth/login">Already have an account? Sign in</a></p>
+</div>

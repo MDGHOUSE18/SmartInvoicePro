@@ -1,0 +1,9 @@
+
+.form-card { padding: 1.5rem; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); }
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.line-items { margin: 1.5rem 0; }
+.line-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.line-header h3 { margin: 0; font-size: 1rem; }
+.line-item { display: grid; grid-template-columns: 1fr 1.5fr 80px 100px 100px 40px; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center; }
+.form-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+@media (max-width: 768px) { .line-item { grid-template-columns: 1fr; } }

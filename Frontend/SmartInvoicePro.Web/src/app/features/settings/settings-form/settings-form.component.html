@@ -1,0 +1,37 @@
+
+<app-page-header title="Company Settings" subtitle="Business profile and invoice defaults" />
+@if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+@if (!canEdit()) { <div class="alert alert-info">Only administrators can modify settings. You have read-only access.</div> }
+<form [formGroup]="form" (ngSubmit)="submit()" class="card form-card">
+  <h3>Company Details</h3>
+  <div class="form-row">
+    <div class="form-group"><label>Company Name *</label><input formControlName="companyName" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Email</label><input formControlName="email" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Phone</label><input formControlName="phone" [readonly]="!canEdit()" /></div>
+  </div>
+  <div class="form-group"><label>Address</label><textarea formControlName="address" rows="2" [readonly]="!canEdit()"></textarea></div>
+  <div class="form-row">
+    <div class="form-group"><label>City</label><input formControlName="city" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>State</label><input formControlName="state" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Postal Code</label><input formControlName="postalCode" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Country</label><input formControlName="country" [readonly]="!canEdit()" /></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label>GSTIN</label><input formControlName="taxNumber" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Website</label><input formControlName="website" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Logo URL</label><input formControlName="logoUrl" [readonly]="!canEdit()" placeholder="https://..." /></div>
+  </div>
+  <h3>Bank Details</h3>
+  <div class="form-row">
+    <div class="form-group"><label>Bank Name</label><input formControlName="bankName" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>Account Number</label><input formControlName="bankAccountNumber" [readonly]="!canEdit()" /></div>
+    <div class="form-group"><label>IFSC</label><input formControlName="bankIfsc" [readonly]="!canEdit()" /></div>
+  </div>
+  <div class="form-group"><label>Terms & Conditions</label><textarea formControlName="termsAndConditions" rows="4" [readonly]="!canEdit()"></textarea></div>
+  @if (canEdit()) {
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading() || form.invalid">{{ loading() ? 'Saving...' : 'Save Settings' }}</button>
+    </div>
+  }
+</form>

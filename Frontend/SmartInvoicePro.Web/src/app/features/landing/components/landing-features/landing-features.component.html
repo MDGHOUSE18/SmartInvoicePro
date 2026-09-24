@@ -1,0 +1,26 @@
+
+<section id="features" class="landing-section">
+  <div class="landing-container">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">Features</span>
+      <h2>Everything you need to run your business</h2>
+      <p>Powerful tools designed for freelancers, agencies, and growing teams who demand professional results.</p>
+    </div>
+
+    <div class="features-grid">
+      @for (feature of features; track feature.title; let i = $index) {
+        <article
+          appAnimateOnScroll="fade-up"
+          [animateDelay]="i * 80"
+          class="feature-card landing-hover-lift"
+        >
+          <div class="feature-card__icon" [style.background]="feature.color + '18'" [style.color]="feature.color">
+            <span [innerHTML]="feature.icon"></span>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

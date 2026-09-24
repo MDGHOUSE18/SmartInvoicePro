@@ -1,0 +1,57 @@
+
+@if (invoice()) {
+  <app-page-header [title]="'Invoice ' + invoice()!.invoiceNumber" [subtitle]="invoice()!.customerName">
+    <div actions class="action-btns">
+      <button type="button" class="btn btn-secondary btn-sm" (click)="downloadPdf()">PDF</button>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="sendEmail()">Send Email</button>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="clone()">Clone</button>
+      @if (invoice()!.status !== 'Paid') {
+        <button type="button" class="btn btn-primary btn-sm" (click)="markPaidOpen.set(true)">Mark Paid</button>
+      }
+      <a [routerLink]="['/invoices', invoice()!.invoiceId, 'edit']" class="btn btn-secondary btn-sm">Edit</a>
+    </div>
+  </app-page-header>
+  @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+  @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+  <div class="detail-grid">
+    <div class="card">
+      <div class="meta">
+        <div><span>Date</span><strong>{{ formatDate(invoice()!.invoiceDate) }}</strong></div>
+        <div><span>Due</span><strong>{{ formatDate(invoice()!.dueDate) }}</strong></div>
+        <div><span>Status</span><app-status-badge [status]="invoice()!.status" /></div>
+        <div><span>Tax Type</span><strong>{{ invoice()!.taxType }}</strong></div>
+      </div>
+      <table class="items-table">
+        <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Discount</th><th>Tax</th><th>Total</th></tr></thead>
+        <tbody>
+          @for (item of invoice()!.items; track $index) {
+            <tr>
+              <td>{{ item.productName }}<br /><small>{{ item.description }}</small></td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ formatCurrency(item.unitPrice) }}</td>
+              <td>{{ formatCurrency(item.discount) }}</td>
+              <td class="tax-rate">{{ formatItemTaxRate(item, invoice()!.taxType) }}</td>
+              <td>{{ formatCurrency(item.lineTotal) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="card totals">
+      <h3>Summary</h3>
+      <dl>
+        <dt>Subtotal</dt><dd>{{ formatCurrency(invoice()!.subtotal) }}</dd>
+        <dt>{{ taxLabel('CGST', invoice()!) }}</dt><dd>{{ formatCurrency(invoice()!.cgstAmount) }}</dd>
+        <dt>{{ taxLabel('SGST', invoice()!) }}</dt><dd>{{ formatCurrency(invoice()!.sgstAmount) }}</dd>
+        <dt>{{ taxLabel('IGST', invoice()!) }}</dt><dd>{{ formatCurrency(invoice()!.igstAmount) }}</dd>
+        <dt>Tax Total</dt><dd>{{ formatCurrency(invoice()!.taxAmount) }}</dd>
+        <dt>Discount</dt><dd>{{ formatCurrency(invoice()!.discountAmount) }}</dd>
+        <dt class="grand">Grand Total</dt><dd class="grand">{{ formatCurrency(invoice()!.grandTotal) }}</dd>
+        <dt>Paid</dt><dd>{{ formatCurrency(invoice()!.amountPaid) }}</dd>
+        <dt>Balance</dt><dd>{{ formatCurrency(invoice()!.balanceAmount) }}</dd>
+      </dl>
+      @if (invoice()!.notes) { <p class="notes"><strong>Notes:</strong> {{ invoice()!.notes }}</p> }
+    </div>
+  </div>
+  <app-confirm-dialog [open]="markPaidOpen()" title="Mark as Paid" message="Mark this invoice as fully paid?" confirmLabel="Mark Paid" (confirmed)="markPaid()" (cancelled)="markPaidOpen.set(false)" />
+} @else if (loading()) { <div class="loading">Loading...</div> }

@@ -1,0 +1,29 @@
+
+@if (customer()) {
+  <app-page-header [title]="customer()!.customerName" [subtitle]="customer()!.companyName ?? ''">
+    <a actions [routerLink]="['/customers', customer()!.customerId, 'edit']" class="btn btn-primary">Edit</a>
+  </app-page-header>
+  <div class="detail-grid">
+    <div class="card detail-card">
+      <h3>Contact Information</h3>
+      <dl>
+        <dt>Email</dt><dd>{{ customer()!.email }}</dd>
+        <dt>Phone</dt><dd>{{ customer()!.phone ?? '—' }}</dd>
+        <dt>Status</dt><dd><app-status-badge [status]="customer()!.isActive ? 'Active' : 'Inactive'" /></dd>
+        <dt>Created</dt><dd>{{ formatDate(customer()!.createdDate) }}</dd>
+      </dl>
+    </div>
+    <div class="card detail-card">
+      <h3>Address & Tax</h3>
+      <dl>
+        <dt>Address</dt><dd>{{ customer()!.address ?? '—' }}</dd>
+        <dt>City</dt><dd>{{ customer()!.city ?? '—' }}</dd>
+        <dt>State</dt><dd>{{ customer()!.state ?? '—' }}</dd>
+        <dt>Country</dt><dd>{{ customer()!.country }}</dd>
+        <dt>GSTIN</dt><dd>{{ customer()!.taxNumber ?? '—' }}</dd>
+      </dl>
+    </div>
+  </div>
+} @else if (loading()) {
+  <div class="loading">Loading...</div>
+}

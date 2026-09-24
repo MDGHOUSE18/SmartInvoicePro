@@ -1,0 +1,15 @@
+
+<div class="page-header">
+  <div>
+    <h1>{{ title }}</h1>
+    @if (subtitle) {
+      <p>{{ subtitle }}</p>
+    }
+  </div>
+  <div class="actions">
+    <ng-content select="[actions]"></ng-content>
+    @if (actionLabel && actionLink) {
+      <a [routerLink]="actionLink" class="btn btn-primary">{{ actionLabel }}</a>
+    }
+  </div>
+</div>

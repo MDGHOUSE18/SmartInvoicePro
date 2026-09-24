@@ -1,0 +1,29 @@
+
+<section id="faq" class="landing-section">
+  <div class="landing-container landing-container--narrow">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">FAQ</span>
+      <h2>Frequently asked questions</h2>
+      <p>Everything you need to know about SmartInvoice Pro.</p>
+    </div>
+
+    <div class="faq-list" appAnimateOnScroll="fade-up" [animateDelay]="100">
+      @for (item of faqs; track item.question; let i = $index) {
+        <div class="faq-item" [class.faq-item--open]="openIndex() === i">
+          <button
+            type="button"
+            class="faq-item__trigger"
+            (click)="toggle(i)"
+            [attr.aria-expanded]="openIndex() === i"
+          >
+            <span>{{ item.question }}</span>
+            <svg class="faq-item__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-item__panel" [attr.aria-hidden]="openIndex() !== i">
+            <p>{{ item.answer }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SmartInvoice Pro — Professional Invoice & Business Management</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SmartInvoice Pro helps businesses create invoices, manage customers, track payments, and generate reports—all in one secure platform.">
+  <meta name="keywords" content="invoice software, billing, GST, business management, freelancers, small business">
+  <meta name="theme-color" content="#10B981">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SmartInvoice Pro">
+  <meta property="og:description" content="Professional Invoice & Business Management System for Modern Businesses">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('sip_theme');
+        var dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+<app-page-header title="Audit Logs" subtitle="System activity trail (Admin only)" />
+<div class="filters card">
+  <input type="text" [(ngModel)]="entityName" (ngModelChange)="load(1)" placeholder="Entity name..." />
+  <input type="text" [(ngModel)]="action" (ngModelChange)="load(1)" placeholder="Action..." />
+</div>
+<div class="table-wrapper card">
+  <table>
+    <thead><tr><th>Date</th><th>Entity</th><th>Action</th><th>User</th><th>IP</th></tr></thead>
+    <tbody>
+      @if (loading()) { <tr><td colspan="5" class="empty">Loading...</td></tr> }
+      @else {
+        @for (log of logs(); track log.auditLogId) {
+          <tr>
+            <td>{{ formatDate(log.createdDate) }}</td>
+            <td>{{ log.entityName }} ({{ log.entityId }})</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.userEmail ?? '—' }}</td>
+            <td>{{ log.ipAddress ?? '—' }}</td>
+          </tr>
+        } @empty { <tr><td colspan="5" class="empty">No audit logs</td></tr> }
+      }
+    </tbody>
+  </table>
+</div>
+@if (totalPages() > 1) {
+  <div class="pagination">
+    <button class="btn btn-secondary btn-sm" [disabled]="page() <= 1" (click)="load(page() - 1)">Prev</button>
+    <span>Page {{ page() }} of {{ totalPages() }}</span>
+    <button class="btn btn-secondary btn-sm" [disabled]="page() >= totalPages()" (click)="load(page() + 1)">Next</button>
+  </div>
+}

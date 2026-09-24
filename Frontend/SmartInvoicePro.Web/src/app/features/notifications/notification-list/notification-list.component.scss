@@ -1,0 +1,8 @@
+
+.notif-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.notif-card { background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; cursor: pointer; }
+.notif-card.unread { border-left: 3px solid var(--primary); background: var(--primary-light); }
+.notif-top { display: flex; justify-content: space-between; margin-bottom: 0.35rem; font-size: 0.875rem; }
+.notif-top span { color: var(--text-muted); font-size: 0.75rem; }
+.notif-card p { margin: 0; font-size: 0.875rem; color: var(--text-muted); }
+.empty { text-align: center; padding: 3rem; color: var(--text-muted); }

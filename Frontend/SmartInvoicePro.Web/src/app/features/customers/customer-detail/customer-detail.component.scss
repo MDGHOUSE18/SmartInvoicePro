@@ -1,0 +1,8 @@
+
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.detail-card { padding: 1.25rem; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); }
+.detail-card h3 { margin: 0 0 1rem; font-size: 1rem; }
+dl { display: grid; grid-template-columns: 120px 1fr; gap: 0.5rem 1rem; margin: 0; font-size: 0.875rem; }
+dt { color: var(--text-muted); font-weight: 500; }
+dd { margin: 0; }
+.loading { text-align: center; padding: 3rem; color: var(--text-muted); }

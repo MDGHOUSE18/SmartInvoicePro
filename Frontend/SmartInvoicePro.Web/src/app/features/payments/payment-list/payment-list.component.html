@@ -1,0 +1,22 @@
+
+<app-page-header title="Payments" subtitle="Payment history and records" actionLabel="Record Payment" actionLink="/payments/new" />
+<div class="table-wrapper card">
+  <table>
+    <thead><tr><th>Date</th><th>Invoice</th><th>Method</th><th>Amount</th><th>Reference</th><th>Balance</th></tr></thead>
+    <tbody>
+      @if (loading()) { <tr><td colspan="6" class="empty">Loading...</td></tr> }
+      @else {
+        @for (p of payments(); track p.paymentId) {
+          <tr>
+            <td>{{ formatDate(p.paymentDate) }}</td>
+            <td><a [routerLink]="['/invoices', p.invoiceId]">{{ p.invoiceNumber }}</a></td>
+            <td>{{ p.paymentMethod }}</td>
+            <td>{{ formatCurrency(p.amountPaid) }}</td>
+            <td>{{ p.referenceNumber ?? '—' }}</td>
+            <td>{{ formatCurrency(p.balanceAmount) }}</td>
+          </tr>
+        } @empty { <tr><td colspan="6" class="empty">No payments found</td></tr> }
+      }
+    </tbody>
+  </table>
+</div>

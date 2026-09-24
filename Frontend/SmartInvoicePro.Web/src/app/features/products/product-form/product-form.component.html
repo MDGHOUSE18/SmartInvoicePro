@@ -1,0 +1,19 @@
+
+<app-page-header [title]="isEdit ? 'Edit Product' : 'New Product'" />
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+<form [formGroup]="form" (ngSubmit)="submit()" class="card form-card">
+  <div class="form-group"><label>Product Name *</label><input formControlName="productName" /></div>
+  <div class="form-group"><label>Description</label><textarea formControlName="description" rows="2"></textarea></div>
+  <div class="form-row">
+    <div class="form-group"><label>Unit Price (₹) *</label><input type="number" formControlName="unitPrice" step="0.01" /></div>
+    <div class="form-group"><label>Tax % (GST)</label><input type="number" formControlName="taxPercentage" step="0.01" /></div>
+    <div class="form-group"><label>Status</label>
+      <select formControlName="status"><option value="Active">Active</option><option value="Inactive">Inactive</option></select>
+    </div>
+  </div>
+  <p class="hint">GST will be split as CGST/SGST (intra-state) or IGST (inter-state) on invoices.</p>
+  <div class="form-actions">
+    <a routerLink="/products" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary" [disabled]="loading() || form.invalid">{{ loading() ? 'Saving...' : 'Save' }}</button>
+  </div>
+</form>

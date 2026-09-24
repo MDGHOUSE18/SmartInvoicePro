@@ -1,0 +1,41 @@
+.landing-trusted {
+  padding: 3rem 0;
+  border-top: 1px solid var(--landing-border, #e2e8f0);
+  border-bottom: 1px solid var(--landing-border, #e2e8f0);
+  background: var(--landing-muted, #f8fafc);
+
+  &__label {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--landing-text-muted, #94a3b8);
+    margin: 0 0 1.75rem;
+  }
+
+  &__logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem 3.5rem;
+  }
+
+  &__logo {
+    opacity: 0.55;
+    transition: opacity 0.3s, transform 0.3s;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  &__logo-text {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--landing-text-muted, #64748b);
+    letter-spacing: -0.02em;
+  }
+}

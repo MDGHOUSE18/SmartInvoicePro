@@ -1,0 +1,127 @@
+<div class="welcome-strip">
+  <div>
+    <h1>{{ clock.greetingIcon() }} {{ clock.greeting() }}, {{ auth.user()?.firstName }}</h1>
+    <p>Here's how your invoicing business is doing · {{ clock.longDateText() }}</p>
+  </div>
+  <div class="welcome-actions">
+    <span class="role-chip">{{ auth.isAdmin() ? 'Admin' : 'Staff' }}</span>
+    <a routerLink="/invoices/new" class="btn btn-primary btn-sm">+ New Invoice</a>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="stats-grid">
+    @for (s of skeletons; track s) {
+      <div class="skeleton skeleton-stat"></div>
+    }
+  </div>
+  <div class="charts-grid">
+    <div class="skeleton skeleton-chart span-2"></div>
+    <div class="skeleton skeleton-chart"></div>
+    <div class="skeleton skeleton-chart"></div>
+  </div>
+} @else if (error()) {
+  <div class="card state-card">
+    <div class="state-icon">⚠️</div>
+    <h3>Dashboard unavailable</h3>
+    <p>{{ error() }}</p>
+    <button type="button" class="btn btn-primary" (click)="load()">Retry</button>
+  </div>
+} @else if (data(); as d) {
+  <div class="stats-grid">
+    <app-stat-card label="Total Revenue" [value]="formatCurrency(d.stats.totalRevenue)" [subtitle]="growthText()" icon="💰" iconBg="rgba(13,148,136,0.15)" />
+    <app-stat-card label="Collected" [value]="formatCurrency(d.stats.totalCollected)" [subtitle]="formatCurrency(d.stats.paidThisMonth) + ' this month'" icon="✅" iconBg="rgba(16,185,129,0.15)" />
+    <app-stat-card label="Outstanding" [value]="formatCurrency(d.stats.outstandingAmount)" [subtitle]="d.stats.overdueInvoices + ' overdue invoice(s)'" icon="⏳" iconBg="rgba(245,158,11,0.15)" />
+    <app-stat-card label="Collection Rate" [value]="d.stats.collectionRate + '%'" subtitle="Collected vs invoiced" icon="📈" iconBg="rgba(99,102,241,0.15)" />
+    <app-stat-card label="Avg Invoice Value" [value]="formatCurrency(d.stats.averageInvoiceValue)" [subtitle]="d.stats.totalInvoices + ' invoices total'" icon="📄" iconBg="rgba(59,130,246,0.15)" />
+    <app-stat-card label="Customers" [value]="'' + d.stats.totalCustomers" [subtitle]="d.stats.activeProducts + ' active products'" icon="👥" iconBg="rgba(236,72,153,0.15)" />
+  </div>
+
+  @if (isEmpty()) {
+    <div class="card state-card">
+      <div class="state-icon">📊</div>
+      <h3>No invoices yet</h3>
+      <p>Create your first invoice and your revenue, collections and aging analytics will appear here.</p>
+      <a routerLink="/invoices/new" class="btn btn-primary">Create invoice</a>
+    </div>
+  } @else {
+    <div class="charts-grid">
+      <div class="card chart-card span-2">
+        <div class="chart-head">
+          <div>
+            <h3>Revenue vs Collections</h3>
+            <span class="chart-sub">Last 12 months</span>
+          </div>
+          <span class="trend" [class.up]="growth() > 0" [class.down]="growth() < 0">{{ growthText() }}</span>
+        </div>
+        <div class="chart-body tall">
+          <canvas baseChart type="bar" [data]="revenueChart().data" [options]="revenueChart().options"></canvas>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-head"><div><h3>Invoice Status</h3><span class="chart-sub">Count by status</span></div></div>
+        <div class="chart-body">
+          <canvas baseChart type="doughnut" [data]="statusChart().data" [options]="statusChart().options" [plugins]="[centerTextPlugin()]"></canvas>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-head"><div><h3>Receivables Aging</h3><span class="chart-sub">Outstanding by days past due</span></div></div>
+        <div class="chart-body">
+          <canvas baseChart type="bar" [data]="agingChart().data" [options]="agingChart().options"></canvas>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-head"><div><h3>Payment Methods</h3><span class="chart-sub">Collections by channel</span></div></div>
+        <div class="chart-body">
+          @if (d.paymentMethodBreakdown.length) {
+            <canvas baseChart type="pie" [data]="methodChart().data" [options]="methodChart().options"></canvas>
+          } @else {
+            <div class="chart-empty">No payments recorded yet</div>
+          }
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="chart-head"><div><h3>Top Customers</h3><span class="chart-sub">By billed revenue</span></div></div>
+        <div class="chart-body">
+          <canvas baseChart type="bar" [data]="customersChart().data" [options]="customersChart().options"></canvas>
+        </div>
+      </div>
+
+      <div class="card chart-card span-2">
+        <div class="chart-head"><div><h3>Top Products &amp; Services</h3><span class="chart-sub">By line revenue</span></div></div>
+        <div class="chart-body">
+          <canvas baseChart type="bar" [data]="productsChart().data" [options]="productsChart().options"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-head">
+        <h3>Recent Invoices</h3>
+        <a routerLink="/invoices" class="view-all">View all →</a>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Invoice #</th><th>Customer</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            @for (inv of d.recentInvoices; track inv.invoiceId) {
+              <tr>
+                <td><a [routerLink]="['/invoices', inv.invoiceId]">{{ inv.invoiceNumber }}</a></td>
+                <td>{{ inv.customerName }}</td>
+                <td>{{ formatDate(inv.invoiceDate) }}</td>
+                <td>{{ formatCurrency(inv.grandTotal) }}</td>
+                <td><app-status-badge [status]="inv.status" /></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+}

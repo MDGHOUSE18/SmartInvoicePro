@@ -1,0 +1,16 @@
+
+.action-btns { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+.card { background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.meta span { display: block; font-size: 0.75rem; color: var(--text-muted); }
+.items-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.items-table th, .items-table td { padding: 0.65rem; border-bottom: 1px solid var(--border-color); text-align: left; }
+.tax-rate { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
+.totals dl { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; font-size: 0.875rem; }
+.totals dt { color: var(--text-muted); }
+.totals dd { margin: 0; text-align: right; }
+.grand { font-weight: 700; font-size: 1rem; color: var(--primary); }
+.notes { margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted); }
+.loading { text-align: center; padding: 3rem; color: var(--text-muted); }
+@media (max-width: 900px) { .detail-grid { grid-template-columns: 1fr; } }

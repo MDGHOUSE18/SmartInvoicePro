@@ -1,0 +1,88 @@
+
+<section id="solutions" class="landing-showcase">
+  <div class="landing-container">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">Platform</span>
+      <h2>One platform. Complete business control.</h2>
+      <p>From invoicing to analytics—experience a unified workspace built for modern businesses.</p>
+    </div>
+
+    <div class="showcase-stage" appAnimateOnScroll="scale">
+      <!-- Floating cards -->
+      <div class="showcase-float showcase-float--tl" appAnimateOnScroll="fade-right" [animateDelay]="200">
+        <div class="showcase-float__icon" style="background: #d1fae5">📄</div>
+        <div>
+          <p class="showcase-float__title">Invoice Module</p>
+          <p class="showcase-float__desc">Create &amp; send in 30s</p>
+        </div>
+      </div>
+      <div class="showcase-float showcase-float--tr" appAnimateOnScroll="fade-left" [animateDelay]="300">
+        <div class="showcase-float__icon" style="background: #dbeafe">👥</div>
+        <div>
+          <p class="showcase-float__title">Customer Hub</p>
+          <p class="showcase-float__desc">86 active clients</p>
+        </div>
+      </div>
+      <div class="showcase-float showcase-float--bl" appAnimateOnScroll="fade-right" [animateDelay]="400">
+        <div class="showcase-float__icon" style="background: #ede9fe">📊</div>
+        <div>
+          <p class="showcase-float__title">Reports</p>
+          <p class="showcase-float__desc">Real-time insights</p>
+        </div>
+      </div>
+      <div class="showcase-float showcase-float--br" appAnimateOnScroll="fade-left" [animateDelay]="500">
+        <div class="showcase-float__icon" style="background: #fef3c7">📈</div>
+        <div>
+          <p class="showcase-float__title">Analytics</p>
+          <p class="showcase-float__desc">+24% this quarter</p>
+        </div>
+      </div>
+
+      <!-- Main screenshot mockup -->
+      <div class="showcase-screen">
+        <div class="showcase-screen__chrome">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="showcase-screen__body">
+          <div class="showcase-tabs">
+            <span class="showcase-tabs__item showcase-tabs__item--active">Invoices</span>
+            <span class="showcase-tabs__item">Customers</span>
+            <span class="showcase-tabs__item">Reports</span>
+            <span class="showcase-tabs__item">Analytics</span>
+          </div>
+          <div class="showcase-content">
+            <div class="showcase-stats">
+              @for (stat of stats; track stat.label) {
+                <div class="showcase-stat">
+                  <span class="showcase-stat__label">{{ stat.label }}</span>
+                  <span class="showcase-stat__value">{{ stat.value }}</span>
+                  <span class="showcase-stat__bar" [style.width.%]="stat.bar"></span>
+                </div>
+              }
+            </div>
+            <div class="showcase-chart-area">
+              <svg viewBox="0 0 500 140" preserveAspectRatio="none" class="showcase-chart">
+                <defs>
+                  <linearGradient id="showcaseGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.2"/>
+                    <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,110 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L420,30 L500,35 L500,140 L0,140 Z" fill="url(#showcaseGrad)"/>
+                <path d="M0,110 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L420,30 L500,35" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <div class="showcase-bars">
+                @for (bar of barData; track bar.month) {
+                  <div class="showcase-bar-col">
+                    <div class="showcase-bar" [style.height.%]="bar.height"></div>
+                    <span>{{ bar.month }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

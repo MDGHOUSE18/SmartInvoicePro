@@ -1,0 +1,48 @@
+
+<section id="pricing" class="landing-section landing-pricing">
+  <div class="landing-container">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">Pricing</span>
+      <h2>Simple, transparent pricing</h2>
+      <p>Choose the plan that fits your business. Upgrade or downgrade anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+      @for (plan of plans; track plan.name; let i = $index) {
+        <article
+          appAnimateOnScroll="fade-up"
+          [animateDelay]="i * 120"
+          class="pricing-card"
+          [class.pricing-card--highlighted]="plan.highlighted"
+        >
+          @if (plan.highlighted) {
+            <span class="pricing-card__badge">Most Popular</span>
+          }
+          <h3>{{ plan.name }}</h3>
+          <div class="pricing-card__price">
+            <span class="pricing-card__amount">{{ plan.price }}</span>
+            <span class="pricing-card__period">{{ plan.period }}</span>
+          </div>
+          <p class="pricing-card__desc">{{ plan.description }}</p>
+          <ul class="pricing-card__features">
+            @for (feature of plan.features; track feature) {
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/></svg>
+                {{ feature }}
+              </li>
+            }
+          </ul>
+          <a
+            routerLink="/auth/register"
+            class="landing-btn"
+            [class.landing-btn--primary]="plan.highlighted"
+            [class.landing-btn--outline]="!plan.highlighted"
+            appRipple
+          >
+            Get Started
+          </a>
+        </article>
+      }
+    </div>
+  </div>
+</section>

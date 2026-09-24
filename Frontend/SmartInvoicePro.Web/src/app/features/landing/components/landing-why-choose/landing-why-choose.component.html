@@ -1,0 +1,27 @@
+
+<section class="landing-section">
+  <div class="landing-container">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">Why SmartInvoice Pro</span>
+      <h2>Built for businesses that value their time</h2>
+      <p>We combine simplicity with enterprise-grade reliability so you can focus on what matters most.</p>
+    </div>
+
+    <div class="why-grid">
+      @for (item of items; track item.title; let i = $index) {
+        <article
+          appAnimateOnScroll="fade-up"
+          [animateDelay]="i * 100"
+          class="why-card landing-hover-lift"
+        >
+          <div class="why-card__visual" [style.background]="item.gradient">
+            <span class="why-card__emoji">{{ item.emoji }}</span>
+            <div class="why-card__rings" aria-hidden="true"></div>
+          </div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

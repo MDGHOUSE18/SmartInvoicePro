@@ -1,0 +1,112 @@
+.landing-workflow {
+  padding: 6rem 0;
+  background: var(--landing-muted, #f8fafc);
+}
+
+.workflow-timeline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.workflow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 140px;
+  max-width: 200px;
+  position: relative;
+
+  &__node {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 1rem;
+  }
+
+  &__number {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 24px;
+    height: 24px;
+    background: #10b981;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: var(--landing-surface, #fff);
+    border: 2px solid var(--landing-border, #e2e8f0);
+    border-radius: 20px;
+    font-size: 1.75rem;
+    box-shadow: 0 8px 24px -6px rgb(15 23 42 / 0.1);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  &:hover &__icon {
+    transform: translateY(-4px);
+    border-color: #10b981;
+  }
+
+  &__content {
+    h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--landing-text, #0f172a);
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--landing-text-muted, #64748b);
+    }
+  }
+
+  &__connector {
+    position: absolute;
+    top: 36px;
+    right: -30px;
+    color: #10b981;
+    opacity: 0.5;
+    z-index: 0;
+
+    svg { width: 60px; height: 24px; }
+  }
+}
+
+@media (max-width: 900px) {
+  .workflow-timeline {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .workflow-step {
+    max-width: 280px;
+
+    &__connector {
+      position: static;
+      transform: rotate(90deg);
+      margin: 0.5rem 0;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+
+<app-page-header title="Demo Data Reset" subtitle="Restore sample data for demonstrations (Admin only)" />
+<div class="card warning-card">
+  <h3>⚠️ Warning</h3>
+  <p>This action will reset all demo data including customers, products, invoices, and payments. This cannot be undone.</p>
+  <button type="button" class="btn btn-danger" (click)="confirmOpen.set(true)">Reset Demo Data</button>
+</div>
+@if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+<app-confirm-dialog
+  [open]="confirmOpen()"
+  title="Reset Demo Data"
+  message="Are you sure you want to reset all demo data? All current data will be replaced."
+  confirmLabel="Reset"
+  [danger]="true"
+  (confirmed)="reset()"
+  (cancelled)="confirmOpen.set(false)"
+/>

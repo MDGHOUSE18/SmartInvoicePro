@@ -1,0 +1,12 @@
+.landing-page {
+  background: var(--landing-bg);
+  color: var(--landing-text);
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  transition: background 0.3s ease, color 0.3s ease;
+
+  main {
+    outline: none;
+  }
+}

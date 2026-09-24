@@ -1,0 +1,14 @@
+
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.status-draft { background: var(--badge-draft-bg); color: var(--badge-draft-text); }
+.status-sent { background: var(--badge-sent-bg); color: var(--badge-sent-text); }
+.status-paid { background: var(--badge-paid-bg); color: var(--badge-paid-text); }
+.status-overdue { background: var(--badge-overdue-bg); color: var(--badge-overdue-text); }
+.status-cancelled { background: var(--badge-cancelled-bg); color: var(--badge-cancelled-text); }

@@ -1,0 +1,20 @@
+<div class="backdrop" (click)="close()"></div>
+<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+  <div class="banner" [attr.data-period]="clock.period()">
+    <span class="banner-icon">{{ clock.greetingIcon() }}</span>
+  </div>
+  <div class="body">
+    <h2 id="welcome-title">{{ clock.greeting() }}, {{ firstName() }}!</h2>
+    <p class="subtitle">Welcome back to SmartInvoice Pro</p>
+    <span class="role-chip">{{ roleLabel() }}</span>
+
+    <div class="clock">
+      <div class="time">{{ clock.timeText() }}</div>
+      <div class="date">{{ clock.longDateText() }}</div>
+      <div class="location">📍 {{ clock.location }}@if (clock.timeZoneShort) { · {{ clock.timeZoneShort }}}</div>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="close()">Go to dashboard</button>
+    <div class="progress"><span [style.animation-duration.s]="autoCloseSeconds"></span></div>
+  </div>
+</div>

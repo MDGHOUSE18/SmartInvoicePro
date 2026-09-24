@@ -1,0 +1,11 @@
+
+.filters, .report-card { background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem; }
+.form-row { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; }
+.tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.tabs button { padding: 0.5rem 1rem; border: 1px solid var(--border-color); background: var(--surface-card); border-radius: var(--radius-sm); cursor: pointer; color: var(--text-muted); }
+.tabs button.active { background: var(--primary); color: white; border-color: var(--primary); }
+.report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+.summary-grid span { display: block; font-size: 0.75rem; color: var(--text-muted); }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-top: 1rem; }
+th, td { padding: 0.65rem; border-bottom: 1px solid var(--border-color); text-align: left; }

@@ -1,0 +1,30 @@
+
+<section class="landing-workflow">
+  <div class="landing-container">
+    <div class="landing-section__header" appAnimateOnScroll="fade-up">
+      <span class="landing-section__eyebrow">Workflow</span>
+      <h2>From customer to cash flow in five steps</h2>
+      <p>A streamlined process that takes you from onboarding to insights without friction.</p>
+    </div>
+
+    <div class="workflow-timeline" appAnimateOnScroll="fade-up" [animateDelay]="150">
+      @for (step of steps; track step.title; let i = $index; let last = $last) {
+        <div class="workflow-step">
+          <div class="workflow-step__node">
+            <span class="workflow-step__number">{{ i + 1 }}</span>
+            <span class="workflow-step__icon">{{ step.icon }}</span>
+          </div>
+          <div class="workflow-step__content">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+          </div>
+          @if (!last) {
+            <div class="workflow-step__connector" aria-hidden="true">
+              <svg viewBox="0 0 60 24" fill="none"><path d="M0 12h48M40 4l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

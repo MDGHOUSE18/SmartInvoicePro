@@ -1,0 +1,76 @@
+
+<app-page-header title="Reports" subtitle="Revenue, tax, and customer analytics (Admin)" />
+<form [formGroup]="filterForm" class="filters card">
+  <div class="form-row">
+    <div class="form-group"><label>From</label><input type="date" formControlName="fromDate" /></div>
+    <div class="form-group"><label>To</label><input type="date" formControlName="toDate" /></div>
+    <button type="button" class="btn btn-primary" (click)="loadAll()">Generate</button>
+  </div>
+</form>
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+<div class="tabs">
+  <button type="button" [class.active]="tab() === 'sales'" (click)="tab.set('sales')">Sales</button>
+  <button type="button" [class.active]="tab() === 'tax'" (click)="tab.set('tax')">Tax Summary</button>
+  <button type="button" [class.active]="tab() === 'customers'" (click)="tab.set('customers')">Customer Revenue</button>
+  <button type="button" [class.active]="tab() === 'payments'" (click)="tab.set('payments')">Payments</button>
+</div>
+@if (tab() === 'sales' && sales()) {
+  <div class="card report-card">
+    <div class="report-header">
+      <h3>Sales Report</h3>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="exportSales()">Export Excel</button>
+    </div>
+    <div class="summary-grid">
+      <div><span>Total Sales</span><strong>{{ formatCurrency(sales()!.totalSales) }}</strong></div>
+      <div><span>Collected</span><strong>{{ formatCurrency(sales()!.totalCollected) }}</strong></div>
+      <div><span>Outstanding</span><strong>{{ formatCurrency(sales()!.totalOutstanding) }}</strong></div>
+    </div>
+  </div>
+}
+@if (tab() === 'tax' && tax()) {
+  <div class="card report-card">
+    <div class="report-header">
+      <h3>Tax Summary (CGST / SGST / IGST)</h3>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="exportTax()">Export Excel</button>
+    </div>
+    <div class="summary-grid">
+      <div><span>CGST</span><strong>{{ formatCurrency(tax()!.totalCgst) }}</strong></div>
+      <div><span>SGST</span><strong>{{ formatCurrency(tax()!.totalSgst) }}</strong></div>
+      <div><span>IGST</span><strong>{{ formatCurrency(tax()!.totalIgst) }}</strong></div>
+      <div><span>Total Tax</span><strong>{{ formatCurrency(tax()!.totalTax) }}</strong></div>
+    </div>
+  </div>
+}
+@if (tab() === 'customers' && customers().length) {
+  <div class="card report-card">
+    <h3>Customer Revenue & Outstanding</h3>
+    <table>
+      <thead><tr><th>Customer</th><th>Invoices</th><th>Billed</th><th>Paid</th><th>Outstanding</th></tr></thead>
+      <tbody>
+        @for (c of customers(); track c.customerId) {
+          <tr>
+            <td>{{ c.customerName }}</td><td>{{ c.invoiceCount }}</td>
+            <td>{{ formatCurrency(c.totalBilled) }}</td><td>{{ formatCurrency(c.totalPaid) }}</td>
+            <td>{{ formatCurrency(c.outstanding) }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+@if (tab() === 'payments' && payments()) {
+  <div class="card report-card">
+    <h3>Payment Report — Total: {{ formatCurrency(payments()!.totalCollected) }}</h3>
+    <table>
+      <thead><tr><th>Date</th><th>Invoice</th><th>Customer</th><th>Method</th><th>Amount</th></tr></thead>
+      <tbody>
+        @for (l of payments()!.lines; track $index) {
+          <tr>
+            <td>{{ formatDate(l.paymentDate) }}</td><td>{{ l.invoiceNumber }}</td><td>{{ l.customerName }}</td>
+            <td>{{ l.paymentMethod }}</td><td>{{ formatCurrency(l.amountPaid) }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

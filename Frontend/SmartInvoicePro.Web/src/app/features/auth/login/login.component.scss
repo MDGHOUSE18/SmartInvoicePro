@@ -1,0 +1,11 @@
+
+.auth-form h2 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+.subtitle { color: var(--text-muted); margin: 0 0 1.5rem; font-size: 0.9rem; }
+.auth-links { display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.875rem; }
+.auth-links a { color: var(--primary); text-decoration: none; }
+.demo-credentials {
+  margin-top: 2rem; padding: 1rem; background: var(--surface-muted);
+  border-radius: var(--radius-sm); font-size: 0.8rem; border: 1px dashed var(--border-color);
+}
+.demo-credentials p { margin: 0.35rem 0 0; color: var(--text-muted); }
+code { background: var(--surface-card); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.75rem; }

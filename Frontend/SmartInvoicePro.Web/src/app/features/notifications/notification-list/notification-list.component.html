@@ -1,0 +1,18 @@
+
+<app-page-header title="Notifications">
+  <button actions type="button" class="btn btn-secondary" (click)="markAllRead()">Mark all read</button>
+</app-page-header>
+<div class="notif-list">
+  @if (loading()) { <div class="empty">Loading...</div> }
+  @else {
+    @for (n of notifications(); track n.notificationId) {
+      <div class="notif-card" [class.unread]="!n.isRead" (click)="markRead(n)">
+        <div class="notif-top">
+          <strong>{{ n.title }}</strong>
+          <span>{{ formatDate(n.createdDate) }}</span>
+        </div>
+        <p>{{ n.message }}</p>
+      </div>
+    } @empty { <div class="empty">No notifications</div> }
+  }
+</div>

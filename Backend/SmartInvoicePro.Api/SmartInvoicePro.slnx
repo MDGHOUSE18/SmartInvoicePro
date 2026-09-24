@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SmartInvoicePro.API/SmartInvoicePro.API.csproj" />
+    <Project Path="src/SmartInvoicePro.Application/SmartInvoicePro.Application.csproj" />
+    <Project Path="src/SmartInvoicePro.Domain/SmartInvoicePro.Domain.csproj" />
+    <Project Path="src/SmartInvoicePro.Infrastructure/SmartInvoicePro.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SmartInvoicePro.Tests/SmartInvoicePro.Tests.csproj" />
+  </Folder>
+</Solution>
