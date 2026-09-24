@@ -24,10 +24,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build Backend/SmartInvoicePro.Api/SmartInvoicePro.API/SmartInvoicePro.Api.csproj --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish Backend/SmartInvoicePro.Api/SmartInvoicePro.API/SmartInvoicePro.Api.csproj --configuration Release --output "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -51,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_592C6272988E4F6C9450FF3DD855DA8B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B2713FD0AB4B4DA88FC5E5C3B3C6F5FA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_97B27C91DEDF4A6591E320CF1FE07933 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5C1604428BB5431DAF5C23A378DEA105 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_53B81819C74B4C4A8B926BC4E575E701 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BA977DAC261147E88F754DF1D0205EF2 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
