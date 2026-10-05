@@ -35,6 +35,7 @@ logs/
 # Documentation - keep local, don't push
 Documentation/
 
+Database/SmartInvoicePro.Database/
 # OS files
 .DS_Store
 Thumbs.db

@@ -27,17 +27,20 @@
     <div formArrayName="items">
       @for (item of items.controls; track $index; let i = $index) {
         <div [formGroupName]="i" class="line-item">
-          <select formControlName="productId" (change)="onProductSelect(i)">
-            <option value="">Custom item</option>
-            @for (p of products(); track p.productId) {
-              <option [value]="p.productId">{{ p.productName }}</option>
-            }
-          </select>
-          <input formControlName="productName" placeholder="Product name" />
-          <input type="number" formControlName="quantity" placeholder="Qty" step="0.01" />
-          <input type="number" formControlName="unitPrice" placeholder="Price" step="0.01" />
-          <input type="number" formControlName="discount" placeholder="Discount" step="0.01" />
-          <button type="button" class="btn btn-danger btn-sm" (click)="removeItem(i)" [disabled]="items.length <= 1">×</button>
+          <div class="li-head"><span class="li-title">Item {{ i + 1 }}</span></div>
+          <label class="li-field li-product"><span class="li-label">Product</span>
+            <select formControlName="productId" (change)="onProductSelect(i)">
+              <option value="">Custom item</option>
+              @for (p of products(); track p.productId) {
+                <option [value]="p.productId">{{ p.productName }}</option>
+              }
+            </select>
+          </label>
+          <label class="li-field li-name"><span class="li-label">Name</span><input formControlName="productName" placeholder="Product name" /></label>
+          <label class="li-field"><span class="li-label">Qty</span><input type="number" formControlName="quantity" placeholder="Qty" step="0.01" inputmode="decimal" /></label>
+          <label class="li-field"><span class="li-label">Price</span><input type="number" formControlName="unitPrice" placeholder="Price" step="0.01" inputmode="decimal" /></label>
+          <label class="li-field"><span class="li-label">Discount</span><input type="number" formControlName="discount" placeholder="Discount" step="0.01" inputmode="decimal" /></label>
+          <button type="button" class="btn btn-danger btn-sm li-remove" (click)="removeItem(i)" [disabled]="items.length <= 1" aria-label="Remove item">×</button>
         </div>
       }
     </div>

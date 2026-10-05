@@ -224,3 +224,37 @@ label {
 a {
   color: var(--primary);
 }
+
+/* ---------- Responsive ---------- */
+html, body { overflow-x: hidden; }
+
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.table-wrapper > table { min-width: 640px; }
+.table-wrapper th,
+.table-wrapper td { white-space: nowrap; }
+
+img, canvas { max-width: 100%; }
+
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px; }
+  .btn { min-height: 40px; }
+  .btn-sm { min-height: 34px; }
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .form-actions .btn { width: 100%; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  dl { grid-template-columns: 1fr !important; row-gap: 0.15rem; }
+  dl dd { margin-bottom: 0.6rem; }
+}
+
+@media (max-width: 480px) {
+  .form-card { padding: 1rem !important; }
+}

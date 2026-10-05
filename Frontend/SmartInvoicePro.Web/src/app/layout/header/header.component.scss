@@ -50,6 +50,7 @@
 .clock-sep, .clock-date, .clock-location { color: var(--text-muted); }
 .user-menu { display: flex; align-items: center; gap: 0.5rem; }
 .user-name { font-size: 0.875rem; color: var(--text-muted); }
+.logout-icon { display: none; font-size: 1rem; }
 @media (max-width: 1100px) {
   .clock-extra { display: none; }
 }
@@ -58,4 +59,23 @@
   .clock-greeting, .clock-sep { display: none; }
   .clock-pill { padding: 0.35rem 0.6rem; }
   .user-name { display: none; }
+  .header { padding: 0.6rem 1rem; gap: 0.5rem; }
+  .header-actions { gap: 0.5rem; }
+  .logout-text { display: none; }
+  .logout-icon { display: inline; }
+  .logout-btn { width: 36px; height: 36px; min-height: 36px; padding: 0; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .header { padding: 0.5rem 0.75rem; }
+  .header-actions { gap: 0.4rem; }
+  .clock-icon { display: none; }
+  .clock-pill { padding: 0.3rem 0.55rem; font-size: 0.75rem; }
+  .notif-wrapper { position: static; }
+  .notif-dropdown {
+    position: fixed; left: 0.5rem; right: 0.5rem; top: 3.5rem;
+    width: auto; max-height: 70vh;
+  }
+}
+@media (max-width: 340px) {
+  .clock-pill { display: none; }
 }

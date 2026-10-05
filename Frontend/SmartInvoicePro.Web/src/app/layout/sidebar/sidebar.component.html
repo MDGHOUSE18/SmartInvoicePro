@@ -5,6 +5,9 @@
     @if (!collapsed) {
       <span class="brand-text">SmartInvoice</span>
     }
+    @if (mobile && !collapsed) {
+      <button type="button" class="close-btn" (click)="toggle.emit()" aria-label="Close menu">×</button>
+    }
   </div>
   <nav class="sidebar-nav">
     @for (item of visibleNavItems(); track item.route) {

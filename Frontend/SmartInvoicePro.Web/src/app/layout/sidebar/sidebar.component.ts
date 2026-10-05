@@ -21,6 +21,7 @@ export class SidebarComponent {
   private readonly auth = inject(AuthService);
 
   @Input() collapsed = false;
+  @Input() mobile = false;
   @Output() toggle = new EventEmitter<void>();
 
   private readonly navItems: NavItem[] = [

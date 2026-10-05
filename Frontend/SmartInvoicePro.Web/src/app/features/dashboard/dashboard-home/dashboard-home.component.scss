@@ -62,4 +62,8 @@ a { color: var(--primary); text-decoration: none; }
   .welcome-strip { padding: 1rem; }
   .welcome-strip h1 { font-size: 1.1rem; }
   .stats-grid { grid-template-columns: minmax(0, 1fr); }
+  .chart-body { height: 220px; }
+  .chart-body.tall { height: 260px; }
+  .card { padding: 1rem; }
+  .welcome-actions { width: 100%; justify-content: space-between; }
 }

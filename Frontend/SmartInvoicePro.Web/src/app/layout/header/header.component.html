@@ -43,7 +43,7 @@
     <div class="user-menu">
       <span class="user-name">{{ auth.user()?.fullName }}</span>
       <a routerLink="/profile" class="icon-btn" title="Profile">👤</a>
-      <button type="button" class="btn btn-secondary btn-sm" (click)="auth.logout()">Logout</button>
+      <button type="button" class="btn btn-secondary btn-sm logout-btn" (click)="auth.logout()" title="Logout"><span class="logout-icon">⎋</span><span class="logout-text">Logout</span></button>
     </div>
   </div>
 </header>

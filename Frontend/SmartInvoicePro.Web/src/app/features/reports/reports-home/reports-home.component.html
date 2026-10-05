@@ -44,6 +44,7 @@
 @if (tab() === 'customers' && customers().length) {
   <div class="card report-card">
     <h3>Customer Revenue & Outstanding</h3>
+    <div class="table-wrapper">
     <table>
       <thead><tr><th>Customer</th><th>Invoices</th><th>Billed</th><th>Paid</th><th>Outstanding</th></tr></thead>
       <tbody>
@@ -56,11 +57,13 @@
         }
       </tbody>
     </table>
+    </div>
   </div>
 }
 @if (tab() === 'payments' && payments()) {
   <div class="card report-card">
     <h3>Payment Report — Total: {{ formatCurrency(payments()!.totalCollected) }}</h3>
+    <div class="table-wrapper">
     <table>
       <thead><tr><th>Date</th><th>Invoice</th><th>Customer</th><th>Method</th><th>Amount</th></tr></thead>
       <tbody>
@@ -72,5 +75,6 @@
         }
       </tbody>
     </table>
+    </div>
   </div>
 }

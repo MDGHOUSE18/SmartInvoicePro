@@ -21,6 +21,7 @@
         <div><span>Status</span><app-status-badge [status]="invoice()!.status" /></div>
         <div><span>Tax Type</span><strong>{{ invoice()!.taxType }}</strong></div>
       </div>
+      <div class="table-wrapper">
       <table class="items-table">
         <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Discount</th><th>Tax</th><th>Total</th></tr></thead>
         <tbody>
@@ -36,6 +37,7 @@
           }
         </tbody>
       </table>
+      </div>
     </div>
     <div class="card totals">
       <h3>Summary</h3>
