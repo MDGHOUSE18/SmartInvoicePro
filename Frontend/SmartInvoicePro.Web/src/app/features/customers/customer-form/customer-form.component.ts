@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../core/services/customer.service';
 import { getApiErrorMessage } from '../../../core/utils/api-error';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-customer-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PageHeaderComponent],
+  imports: [SkeletonComponent, CommonModule, ReactiveFormsModule, RouterLink, PageHeaderComponent],
   templateUrl: './customer-form.component.html',
   styleUrl: './customer-form.component.scss',
 })
@@ -20,6 +21,8 @@ export class CustomerFormComponent implements OnInit {
   private readonly router = inject(Router);
 
   readonly loading = signal(false);
+  /** True while an edit form waits for its record. */
+  readonly prefilling = signal(false);
   readonly error = signal('');
   isEdit = false;
   customerId = '';
@@ -41,9 +44,10 @@ export class CustomerFormComponent implements OnInit {
     this.customerId = this.route.snapshot.paramMap.get('id') ?? '';
     this.isEdit = this.route.snapshot.url.some((s) => s.path === 'edit');
     if (this.isEdit && this.customerId) {
+      this.prefilling.set(true);
       this.customerService.getById(this.customerId).subscribe({
-        next: (c) => this.form.patchValue(c),
-        error: (err) => this.error.set(getApiErrorMessage(err)),
+        next: (c) => { this.form.patchValue(c); this.prefilling.set(false); },
+        error: (err) => { this.prefilling.set(false); this.error.set(getApiErrorMessage(err)); },
       });
     }
   }

@@ -4,7 +4,7 @@
   <div class="form-row">
     <div class="form-group"><label>From</label><input type="date" formControlName="fromDate" /></div>
     <div class="form-group"><label>To</label><input type="date" formControlName="toDate" /></div>
-    <button type="button" class="btn btn-primary" (click)="loadAll()">Generate</button>
+    <button type="button" class="btn btn-primary" [class.is-loading]="loading()" [disabled]="loading()" (click)="loadAll()">@if (loading()) { <span class="spinner" aria-hidden="true"></span> } Generate</button>
   </div>
 </form>
 @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
@@ -14,6 +14,10 @@
   <button type="button" [class.active]="tab() === 'customers'" (click)="tab.set('customers')">Customer Revenue</button>
   <button type="button" [class.active]="tab() === 'payments'" (click)="tab.set('payments')">Payments</button>
 </div>
+@if (loading()) {
+  <app-skeleton variant="cards" [count]="3" />
+  <app-skeleton class="report-skeleton" variant="table" [rows]="6" [cols]="5" />
+} @else {
 @if (tab() === 'sales' && sales()) {
   <div class="card report-card">
     <div class="report-header">
@@ -77,4 +81,5 @@
     </table>
     </div>
   </div>
+}
 }

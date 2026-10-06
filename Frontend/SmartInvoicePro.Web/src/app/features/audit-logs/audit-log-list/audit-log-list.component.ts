@@ -5,11 +5,12 @@ import { AuditLogService } from '../../../core/services/audit-log.service';
 import { AuditLog } from '../../../core/models/audit-log.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { formatDate } from '../../../core/utils/format.utils';
+import { SkeletonRowComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-audit-log-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, PageHeaderComponent],
+  imports: [SkeletonRowComponent, CommonModule, FormsModule, PageHeaderComponent],
   templateUrl: './audit-log-list.component.html',
   styleUrl: './audit-log-list.component.scss',
 })

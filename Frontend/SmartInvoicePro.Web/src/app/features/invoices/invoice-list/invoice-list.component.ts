@@ -7,11 +7,12 @@ import { InvoiceListItem, INVOICE_STATUSES } from '../../../core/models/invoice.
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { formatCurrency, formatDate } from '../../../core/utils/format.utils';
+import { SkeletonRowComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-invoice-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, PageHeaderComponent, StatusBadgeComponent],
+  imports: [SkeletonRowComponent, CommonModule, RouterLink, FormsModule, PageHeaderComponent, StatusBadgeComponent],
   templateUrl: './invoice-list.component.html',
   styleUrl: './invoice-list.component.scss',
 })

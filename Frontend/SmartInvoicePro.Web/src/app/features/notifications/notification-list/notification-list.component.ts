@@ -5,11 +5,12 @@ import { NotificationStateService } from '../../../core/services/notification-st
 import { AppNotification } from '../../../core/models/notification.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { formatDate } from '../../../core/utils/format.utils';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-notification-list',
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent],
+  imports: [SkeletonComponent, CommonModule, PageHeaderComponent],
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.scss',
 })

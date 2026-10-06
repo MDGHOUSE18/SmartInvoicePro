@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { Observable, catchError, forkJoin, of, tap } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReportService } from '../../../core/services/report.service';
@@ -6,11 +7,12 @@ import { SalesReport, TaxReport, CustomerReport, PaymentReport } from '../../../
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { formatCurrency, formatDate, downloadBlob, todayIso } from '../../../core/utils/format.utils';
 import { getApiErrorMessage } from '../../../core/utils/api-error';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-reports-home',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PageHeaderComponent],
+  imports: [SkeletonComponent, CommonModule, ReactiveFormsModule, PageHeaderComponent],
   templateUrl: './reports-home.component.html',
   styleUrl: './reports-home.component.scss',
 })
@@ -24,6 +26,7 @@ export class ReportsHomeComponent {
   readonly customers = signal<CustomerReport[]>([]);
   readonly payments = signal<PaymentReport | null>(null);
   readonly error = signal('');
+  readonly loading = signal(false);
   protected readonly formatCurrency = formatCurrency;
   protected readonly formatDate = formatDate;
 
@@ -35,22 +38,24 @@ export class ReportsHomeComponent {
   loadAll(): void {
     const filter = this.filterForm.getRawValue();
     this.error.set('');
-    this.reportService.getSales(filter).subscribe({
-      next: (r) => this.sales.set(r),
-      error: (err) => this.error.set(getApiErrorMessage(err, 'Failed to load sales report')),
-    });
-    this.reportService.getTax(filter).subscribe({
-      next: (r) => this.tax.set(r),
-      error: (err) => this.error.set(getApiErrorMessage(err, 'Failed to load tax report')),
-    });
-    this.reportService.getCustomers(filter).subscribe({
-      next: (r) => this.customers.set(r),
-      error: (err) => this.error.set(getApiErrorMessage(err, 'Failed to load customer report')),
-    });
-    this.reportService.getPayments(filter).subscribe({
-      next: (r) => this.payments.set(r),
-      error: (err) => this.error.set(getApiErrorMessage(err, 'Failed to load payments report')),
-    });
+    this.loading.set(true);
+    forkJoin([
+      this.settle(this.reportService.getSales(filter), (r) => this.sales.set(r), 'Failed to load sales report'),
+      this.settle(this.reportService.getTax(filter), (r) => this.tax.set(r), 'Failed to load tax report'),
+      this.settle(this.reportService.getCustomers(filter), (r) => this.customers.set(r), 'Failed to load customer report'),
+      this.settle(this.reportService.getPayments(filter), (r) => this.payments.set(r), 'Failed to load payments report'),
+    ]).subscribe(() => this.loading.set(false));
+  }
+
+  /** Applies one report's result; a failure shows its message without cancelling the others. */
+  private settle<T>(source: Observable<T>, apply: (value: T) => void, failMessage: string): Observable<unknown> {
+    return source.pipe(
+      tap(apply),
+      catchError((err) => {
+        this.error.set(getApiErrorMessage(err, failMessage));
+        return of(null);
+      }),
+    );
   }
 
   exportSales(): void {

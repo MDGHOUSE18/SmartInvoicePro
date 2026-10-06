@@ -11,11 +11,12 @@ import { Product } from '../../../core/models/product.model';
 import { INVOICE_STATUSES } from '../../../core/models/invoice.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { formatCurrency, todayIso } from '../../../core/utils/format.utils';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-invoice-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PageHeaderComponent],
+  imports: [SkeletonComponent, CommonModule, ReactiveFormsModule, RouterLink, PageHeaderComponent],
   templateUrl: './invoice-form.component.html',
   styleUrl: './invoice-form.component.scss',
 })
@@ -30,6 +31,8 @@ export class InvoiceFormComponent implements OnInit {
   readonly customers = signal<CustomerListItem[]>([]);
   readonly products = signal<Product[]>([]);
   readonly loading = signal(false);
+  /** True while an edit form waits for its record. */
+  readonly prefilling = signal(false);
   readonly error = signal('');
   isEdit = false;
   invoiceId = '';
@@ -55,8 +58,10 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceId = this.route.snapshot.paramMap.get('id') ?? '';
     this.isEdit = this.route.snapshot.url.some((s) => s.path === 'edit');
     if (this.isEdit && this.invoiceId) {
+      this.prefilling.set(true);
       this.invoiceService.getById(this.invoiceId).subscribe({
         next: (inv) => {
+          this.prefilling.set(false);
           this.form.patchValue({
             customerId: inv.customerId,
             invoiceDate: inv.invoiceDate,
@@ -77,7 +82,7 @@ export class InvoiceFormComponent implements OnInit {
             }));
           });
         },
-        error: (err) => this.error.set(getApiErrorMessage(err)),
+        error: (err) => { this.prefilling.set(false); this.error.set(getApiErrorMessage(err)); },
       });
     }
   }

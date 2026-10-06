@@ -9,11 +9,12 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 import { formatCurrency, formatDate, downloadBlob } from '../../../core/utils/format.utils';
 import { formatItemTaxRate, invoiceTaxLabel } from '../../../core/utils/invoice.utils';
 import { getApiErrorMessage } from '../../../core/utils/api-error';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-invoice-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, PageHeaderComponent, StatusBadgeComponent, ConfirmDialogComponent],
+  imports: [SkeletonComponent, CommonModule, RouterLink, PageHeaderComponent, StatusBadgeComponent, ConfirmDialogComponent],
   templateUrl: './invoice-detail.component.html',
   styleUrl: './invoice-detail.component.scss',
 })

@@ -258,3 +258,71 @@ img, canvas { max-width: 100%; }
 @media (max-width: 480px) {
   .form-card { padding: 1rem !important; }
 }
+
+/* ---------- Loading: shimmer skeletons, spinners ---------- */
+:root, [data-theme='light'] {
+  --skeleton-base: #e9eef4;
+  --skeleton-highlight: #f8fafc;
+}
+[data-theme='dark'] {
+  --skeleton-base: #2a3a52;
+  --skeleton-highlight: #3a4c66;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Base shimmer block. Size it with a modifier below or a page-level class. */
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-highlight) 50%, var(--skeleton-base) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+.skeleton-text { height: 12px; width: 100%; border-radius: 999px; }
+.skeleton-text + .skeleton-text { margin-top: 0.6rem; }
+.skeleton-title { height: 20px; width: 40%; border-radius: var(--radius-sm); margin-bottom: 1rem; }
+.skeleton-circle { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+.skeleton-btn { height: 34px; width: 96px; border-radius: var(--radius-sm); }
+.skeleton-input { height: 40px; width: 100%; border-radius: var(--radius-sm); }
+.skeleton-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  min-height: 92px;
+}
+.skeleton.w-25 { width: 25%; }
+.skeleton.w-40 { width: 40%; }
+.skeleton.w-50 { width: 50%; }
+.skeleton.w-60 { width: 60%; }
+.skeleton.w-75 { width: 75%; }
+.skeleton.w-90 { width: 90%; }
+
+/* Inline ring spinner; takes the current text colour. */
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  vertical-align: -0.125em;
+  animation: spin 0.7s linear infinite;
+}
+.spinner-lg { width: 2.25rem; height: 2.25rem; border-width: 3px; color: var(--primary); }
+
+.btn.is-loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; background: var(--skeleton-base); }
+  .spinner { animation-duration: 1.6s; }
+}

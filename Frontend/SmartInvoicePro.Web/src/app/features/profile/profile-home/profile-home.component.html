@@ -16,6 +16,6 @@
   <form [formGroup]="pwdForm" (ngSubmit)="changePassword()">
     <div class="form-group"><label>Current Password</label><input type="password" formControlName="currentPassword" /></div>
     <div class="form-group"><label>New Password</label><input type="password" formControlName="newPassword" /></div>
-    <button type="submit" class="btn btn-primary" [disabled]="pwdLoading() || pwdForm.invalid">{{ pwdLoading() ? 'Updating...' : 'Update Password' }}</button>
+    <button type="submit" class="btn btn-primary" [class.is-loading]="pwdLoading()" [disabled]="pwdLoading() || pwdForm.invalid">@if (pwdLoading()) { <span class="spinner" aria-hidden="true"></span> } {{ pwdLoading() ? 'Updating...' : 'Update Password' }}</button>
   </form>
 </div>

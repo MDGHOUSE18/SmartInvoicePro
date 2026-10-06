@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { Observable, map, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
@@ -9,34 +9,35 @@ export class ApiService {
   private readonly http = inject(HttpClient);
   readonly baseUrl = environment.apiUrl;
 
-  get<T>(path: string, params?: Record<string, string | number | boolean | undefined | null>): Observable<T> {
+  get<T>(path: string, params?: Record<string, string | number | boolean | undefined | null>, context?: HttpContext): Observable<T> {
     return this.http
-      .get<ApiResponse<T>>(`${this.baseUrl}/${path}`, { params: this.buildParams(params) })
+      .get<ApiResponse<T>>(`${this.baseUrl}/${path}`, { params: this.buildParams(params), context })
       .pipe(map((res) => this.unwrap(res)));
   }
 
-  post<T>(path: string, body?: unknown): Observable<T> {
+  post<T>(path: string, body?: unknown, context?: HttpContext): Observable<T> {
     return this.http
-      .post<ApiResponse<T>>(`${this.baseUrl}/${path}`, body ?? {})
+      .post<ApiResponse<T>>(`${this.baseUrl}/${path}`, body ?? {}, { context })
       .pipe(map((res) => this.unwrap(res)));
   }
 
-  put<T>(path: string, body?: unknown): Observable<T> {
+  put<T>(path: string, body?: unknown, context?: HttpContext): Observable<T> {
     return this.http
-      .put<ApiResponse<T>>(`${this.baseUrl}/${path}`, body ?? {})
+      .put<ApiResponse<T>>(`${this.baseUrl}/${path}`, body ?? {}, { context })
       .pipe(map((res) => this.unwrap(res)));
   }
 
-  delete<T = void>(path: string): Observable<T> {
+  delete<T = void>(path: string, context?: HttpContext): Observable<T> {
     return this.http
-      .delete<ApiResponse<T>>(`${this.baseUrl}/${path}`)
+      .delete<ApiResponse<T>>(`${this.baseUrl}/${path}`, { context })
       .pipe(map((res) => this.unwrap(res)));
   }
 
-  getBlob(path: string, params?: Record<string, string | number | boolean | undefined | null>): Observable<Blob> {
+  getBlob(path: string, params?: Record<string, string | number | boolean | undefined | null>, context?: HttpContext): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/${path}`, {
       params: this.buildParams(params),
       responseType: 'blob',
+      context,
     });
   }
 

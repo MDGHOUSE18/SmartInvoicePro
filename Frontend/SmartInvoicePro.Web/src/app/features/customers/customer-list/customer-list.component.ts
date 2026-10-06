@@ -8,11 +8,12 @@ import { PageHeaderComponent } from '../../../shared/components/page-header/page
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { downloadBlob } from '../../../core/utils/format.utils';
 import { getApiErrorMessage } from '../../../core/utils/api-error';
+import { SkeletonRowComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-customer-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, PageHeaderComponent, StatusBadgeComponent],
+  imports: [SkeletonRowComponent, CommonModule, RouterLink, FormsModule, PageHeaderComponent, StatusBadgeComponent],
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.scss',
 })

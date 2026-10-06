@@ -5,7 +5,7 @@
   <table>
     <thead><tr><th>Name</th><th>Unit Price</th><th>Tax %</th><th>CGST</th><th>SGST</th><th>IGST</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody>
-      @if (loading()) { <tr><td colspan="8" class="empty">Loading...</td></tr> }
+      @if (loading()) { @for (r of [0, 1, 2, 3, 4, 5, 6, 7]; track r) { <tr appSkeletonRow [cols]="8" [row]="r"></tr> } }
       @else {
         @for (p of products(); track p.productId) {
           <tr>

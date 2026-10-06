@@ -5,11 +5,12 @@ import { PaymentService } from '../../../core/services/payment.service';
 import { Payment } from '../../../core/models/payment.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { formatCurrency, formatDate } from '../../../core/utils/format.utils';
+import { SkeletonRowComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-payment-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, PageHeaderComponent],
+  imports: [SkeletonRowComponent, CommonModule, RouterLink, PageHeaderComponent],
   templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss',
 })

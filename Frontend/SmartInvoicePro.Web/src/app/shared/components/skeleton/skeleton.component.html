@@ -1,0 +1,75 @@
+
+@switch (variant) {
+  @case ('cards') {
+    <div class="sk-cards">
+      @for (i of range(count); track i) {
+        <div class="sk-card">
+          <span class="skeleton skeleton-circle"></span>
+          <div class="sk-grow">
+            <span class="skeleton skeleton-text w-50"></span>
+            <span class="skeleton skeleton-text sk-tall w-75"></span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  @case ('detail') {
+    <div class="sk-header">
+      <span class="skeleton skeleton-title w-40"></span>
+      <span class="skeleton skeleton-text w-25"></span>
+    </div>
+    <div class="sk-detail">
+      @for (p of range(count); track p) {
+        <div class="sk-panel">
+          <span class="skeleton skeleton-title w-40"></span>
+          @for (r of range(rows); track r) {
+            <div class="sk-pair">
+              <span class="skeleton skeleton-text"></span>
+              <span class="skeleton skeleton-text" [class]="widthFor(r + p)"></span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+  @case ('form') {
+    <div class="sk-panel">
+      <div class="sk-fields">
+        @for (f of range(count); track f) {
+          <div>
+            <span class="skeleton skeleton-text w-40 sk-label"></span>
+            <span class="skeleton skeleton-input"></span>
+          </div>
+        }
+      </div>
+      <div class="sk-actions">
+        <span class="skeleton skeleton-btn"></span>
+        <span class="skeleton skeleton-btn"></span>
+      </div>
+    </div>
+  }
+  @case ('list') {
+    <div class="sk-list">
+      @for (i of range(count); track i) {
+        <div class="sk-panel sk-list-item">
+          <div class="sk-row">
+            <span class="skeleton skeleton-text" [class]="widthFor(i)"></span>
+            <span class="skeleton skeleton-text w-25"></span>
+          </div>
+          <span class="skeleton skeleton-text w-90"></span>
+        </div>
+      }
+    </div>
+  }
+  @case ('table') {
+    <div class="sk-panel">
+      @for (r of range(rows); track r) {
+        <div class="sk-table-row" [style.grid-template-columns]="'repeat(' + cols + ', minmax(0, 1fr))'">
+          @for (c of range(cols); track c) {
+            <span class="skeleton skeleton-text" [class]="widthFor(r + c)"></span>
+          }
+        </div>
+      }
+    </div>
+  }
+}

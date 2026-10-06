@@ -8,11 +8,12 @@ import { PageHeaderComponent } from '../../../shared/components/page-header/page
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { formatCurrency } from '../../../core/utils/format.utils';
+import { SkeletonRowComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, PageHeaderComponent, StatusBadgeComponent, ConfirmDialogComponent],
+  imports: [SkeletonRowComponent, CommonModule, RouterLink, FormsModule, PageHeaderComponent, StatusBadgeComponent, ConfirmDialogComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
 })

@@ -6,11 +6,12 @@ import { Customer } from '../../../core/models/customer.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { formatDate } from '../../../core/utils/format.utils';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-customer-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, PageHeaderComponent, StatusBadgeComponent],
+  imports: [SkeletonComponent, CommonModule, RouterLink, PageHeaderComponent, StatusBadgeComponent],
   templateUrl: './customer-detail.component.html',
   styleUrl: './customer-detail.component.scss',
 })

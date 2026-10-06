@@ -3,6 +3,9 @@
 @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
 @if (error()) { <div class="alert alert-error">{{ error() }}</div> }
 @if (!canEdit()) { <div class="alert alert-info">Only administrators can modify settings. You have read-only access.</div> }
+@if (prefilling()) {
+  <app-skeleton variant="form" [count]="12" />
+} @else {
 <form [formGroup]="form" (ngSubmit)="submit()" class="card form-card">
   <h3>Company Details</h3>
   <div class="form-row">
@@ -31,7 +34,8 @@
   <div class="form-group"><label>Terms & Conditions</label><textarea formControlName="termsAndConditions" rows="4" [readonly]="!canEdit()"></textarea></div>
   @if (canEdit()) {
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary" [disabled]="loading() || form.invalid">{{ loading() ? 'Saving...' : 'Save Settings' }}</button>
+      <button type="submit" class="btn btn-primary" [class.is-loading]="loading()" [disabled]="loading() || form.invalid">@if (loading()) { <span class="spinner" aria-hidden="true"></span> } {{ loading() ? 'Saving...' : 'Save Settings' }}</button>
     </div>
   }
 </form>
+}

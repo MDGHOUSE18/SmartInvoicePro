@@ -27,8 +27,8 @@
       <label>Password</label>
       <input type="password" formControlName="password" />
     </div>
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="loading() || form.invalid">
-      {{ loading() ? 'Creating...' : 'Register' }}
+    <button type="submit" class="btn btn-primary btn-block" [class.is-loading]="loading()" [disabled]="loading() || form.invalid">
+      @if (loading()) { <span class="spinner" aria-hidden="true"></span> } {{ loading() ? 'Creating...' : 'Register' }}
     </button>
   </form>
   <p class="auth-link"><a routerLink="/auth/login">Already have an account? Sign in</a></p>

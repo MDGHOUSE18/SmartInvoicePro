@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       @if (loading) {
-        <tr><td [attr.colspan]="columns.length" class="empty">Loading...</td></tr>
+        @for (r of [0, 1, 2, 3, 4, 5]; track r) { <tr appSkeletonRow [cols]="columns.length" [row]="r"></tr> }
       } @else if (!data.length) {
         <tr><td [attr.colspan]="columns.length" class="empty">{{ emptyMessage }}</td></tr>
       } @else {

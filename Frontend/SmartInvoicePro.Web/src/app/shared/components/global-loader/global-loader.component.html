@@ -1,0 +1,12 @@
+
+<div class="top-bar" [class.active]="loading.barVisible()" aria-hidden="true">
+  <span class="top-bar-fill"></span>
+</div>
+@if (loading.overlayVisible()) {
+  <div class="overlay" role="status" aria-live="polite" aria-busy="true">
+    <div class="overlay-card">
+      <span class="spinner spinner-lg"></span>
+      <span class="overlay-message">{{ message }}</span>
+    </div>
+  </div>
+}

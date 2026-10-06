@@ -12,13 +12,13 @@
 @if (loading()) {
   <div class="stats-grid">
     @for (s of skeletons; track s) {
-      <div class="skeleton skeleton-stat"></div>
+      <div class="skeleton skeleton-card skeleton-stat"></div>
     }
   </div>
   <div class="charts-grid">
-    <div class="skeleton skeleton-chart span-2"></div>
-    <div class="skeleton skeleton-chart"></div>
-    <div class="skeleton skeleton-chart"></div>
+    <div class="skeleton skeleton-card skeleton-chart span-2"></div>
+    <div class="skeleton skeleton-card skeleton-chart"></div>
+    <div class="skeleton skeleton-card skeleton-chart"></div>
   </div>
 } @else if (error()) {
   <div class="card state-card">

@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../../core/services/product.service';
 import { getApiErrorMessage } from '../../../core/utils/api-error';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PageHeaderComponent],
+  imports: [SkeletonComponent, CommonModule, ReactiveFormsModule, RouterLink, PageHeaderComponent],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss',
 })
@@ -20,6 +21,8 @@ export class ProductFormComponent implements OnInit {
   private readonly router = inject(Router);
 
   readonly loading = signal(false);
+  /** True while an edit form waits for its record. */
+  readonly prefilling = signal(false);
   readonly error = signal('');
   isEdit = false;
   productId = '';
@@ -36,9 +39,10 @@ export class ProductFormComponent implements OnInit {
     this.productId = this.route.snapshot.paramMap.get('id') ?? '';
     this.isEdit = this.route.snapshot.url.some((s) => s.path === 'edit');
     if (this.isEdit && this.productId) {
+      this.prefilling.set(true);
       this.productService.getById(this.productId).subscribe({
-        next: (p) => this.form.patchValue(p),
-        error: (err) => this.error.set(getApiErrorMessage(err)),
+        next: (p) => { this.form.patchValue(p); this.prefilling.set(false); },
+        error: (err) => { this.prefilling.set(false); this.error.set(getApiErrorMessage(err)); },
       });
     }
   }

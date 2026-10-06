@@ -3,7 +3,9 @@
 <div class="card warning-card">
   <h3>⚠️ Warning</h3>
   <p>This action will reset all demo data including customers, products, invoices, and payments. This cannot be undone.</p>
-  <button type="button" class="btn btn-danger" (click)="confirmOpen.set(true)">Reset Demo Data</button>
+  <button type="button" class="btn btn-danger" [class.is-loading]="loading()" [disabled]="loading()" (click)="confirmOpen.set(true)">
+    @if (loading()) { <span class="spinner" aria-hidden="true"></span> } {{ loading() ? 'Resetting...' : 'Reset Demo Data' }}
+  </button>
 </div>
 @if (message()) { <div class="alert alert-success">{{ message() }}</div> }
 @if (error()) { <div class="alert alert-error">{{ error() }}</div> }

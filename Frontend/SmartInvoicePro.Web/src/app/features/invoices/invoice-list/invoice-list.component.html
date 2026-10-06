@@ -11,7 +11,7 @@
   <table>
     <thead><tr><th>Invoice #</th><th>Customer</th><th>Date</th><th>Due</th><th>Total</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody>
-      @if (loading()) { <tr><td colspan="8" class="empty">Loading...</td></tr> }
+      @if (loading()) { @for (r of [0, 1, 2, 3, 4, 5, 6, 7]; track r) { <tr appSkeletonRow [cols]="8" [row]="r"></tr> } }
       @else {
         @for (inv of invoices(); track inv.invoiceId) {
           <tr>

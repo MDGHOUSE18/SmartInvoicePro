@@ -5,11 +5,12 @@ import { CompanySettingsService } from '../../../core/services/company-settings.
 import { AuthService } from '../../../core/services/auth.service';
 import { getApiErrorMessage } from '../../../core/utils/api-error';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-settings-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PageHeaderComponent],
+  imports: [SkeletonComponent, CommonModule, ReactiveFormsModule, PageHeaderComponent],
   templateUrl: './settings-form.component.html',
   styleUrl: './settings-form.component.scss',
 })
@@ -19,6 +20,7 @@ export class SettingsFormComponent implements OnInit {
   private readonly auth = inject(AuthService);
 
   readonly loading = signal(false);
+  readonly prefilling = signal(true);
   readonly message = signal('');
   readonly error = signal('');
   readonly canEdit = this.auth.isAdmin;
@@ -44,8 +46,8 @@ export class SettingsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingsService.get().subscribe({
-      next: (s) => this.form.patchValue(s),
-      error: (err) => this.error.set(getApiErrorMessage(err)),
+      next: (s) => { this.form.patchValue(s); this.prefilling.set(false); },
+      error: (err) => { this.prefilling.set(false); this.error.set(getApiErrorMessage(err)); },
     });
   }
 

@@ -56,4 +56,4 @@
     </div>
   </div>
   <app-confirm-dialog [open]="markPaidOpen()" title="Mark as Paid" message="Mark this invoice as fully paid?" confirmLabel="Mark Paid" (confirmed)="markPaid()" (cancelled)="markPaidOpen.set(false)" />
-} @else if (loading()) { <div class="loading">Loading...</div> }
+} @else if (loading()) { <app-skeleton variant="detail" [count]="2" [rows]="6" /> }

@@ -38,14 +38,9 @@
 .state-card p { color: var(--text-muted); margin: 0.5rem auto 1.25rem; max-width: 420px; font-size: 0.9rem; }
 .state-card .btn { text-decoration: none; display: inline-block; }
 
-.skeleton {
-  border-radius: var(--radius-md); border: 1px solid var(--border-color);
-  background: linear-gradient(90deg, var(--surface-card) 25%, var(--surface-muted) 50%, var(--surface-card) 75%);
-  background-size: 200% 100%; animation: shimmer 1.4s infinite;
-}
+/* Sizes for the global .skeleton / .skeleton-card shimmer (styles.scss). */
 .skeleton-stat { height: 92px; }
 .skeleton-chart { height: 300px; }
-@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
 .table-wrapper { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }

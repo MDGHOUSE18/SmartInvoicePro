@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       @if (loading()) {
-        <tr><td colspan="7" class="empty">Loading...</td></tr>
+        @for (r of [0, 1, 2, 3, 4, 5, 6, 7]; track r) { <tr appSkeletonRow [cols]="7" [row]="r"></tr> }
       } @else if (!customers().length) {
         <tr><td colspan="7" class="empty">No customers found</td></tr>
       } @else {

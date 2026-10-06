@@ -23,6 +23,6 @@
   </div>
   <div class="form-actions">
     <a routerLink="/payments" class="btn btn-secondary">Cancel</a>
-    <button type="submit" class="btn btn-primary" [disabled]="loading() || form.invalid">{{ loading() ? 'Saving...' : 'Record Payment' }}</button>
+    <button type="submit" class="btn btn-primary" [class.is-loading]="loading()" [disabled]="loading() || form.invalid">@if (loading()) { <span class="spinner" aria-hidden="true"></span> } {{ loading() ? 'Saving...' : 'Record Payment' }}</button>
   </div>
 </form>
