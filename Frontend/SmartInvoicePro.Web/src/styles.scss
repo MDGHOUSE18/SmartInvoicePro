@@ -326,3 +326,6 @@ img, canvas { max-width: 100%; }
   .skeleton { animation: none; background: var(--skeleton-base); }
   .spinner { animation-duration: 1.6s; }
 }
+
+/* Netlify injects a "Powered by Netlify" badge iframe into every page; hide it. */
+#nl-badge-frame { display: none !important; }
